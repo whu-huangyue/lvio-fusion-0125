@@ -1,0 +1,129 @@
+%YAML:1.0
+
+# flags
+use_imu: 0
+use_lidar: 1
+use_navsat: 0
+use_loop: 0             # 0 for only odometry, 1 for whole system
+use_adapt: 0
+
+# ros parameters
+# imu_topic: '/kitti/oxts/imu'
+lidar_topic: '/lslidar_point_cloud'
+# navsat_topic: '/kitti/oxts/gps/fix'
+image0_topic: '/camera/infra1/image_rect_raw'
+image1_topic: '/camera/infra2/image_rect_raw'
+color_topic: '/camera/color/image_raw'
+result_path: '/home/jyp/Projects/lvio-fusion/result/result.csv'
+
+# cameras parameters
+undistort: 0
+
+# camera0 intrinsics
+camera0.fx: 385.7544860839844
+camera0.fy: 385.7544860839844
+camera0.cx: 323.1204833984375
+camera0.cy: 236.7432098388672
+
+# camera1 intrinsics
+camera1.fx: 385.7544860839844
+camera1.fy: 385.7544860839844
+camera1.cx: 323.1204833984375
+camera1.cy: 236.7432098388672
+
+# lidar parameters
+num_scans: 32      
+use_adapt: 1     # only for 16, 32, 64
+horizon_scan: 2000
+ang_res_y: 1
+ang_bottom: 16
+ground_rows: 16
+cycle_time: 0.1
+min_range: 0.2
+max_range: 20
+deskew: 0
+spacing: 5
+resolution: 0.5
+
+#imu parameters
+acc_n: 0.08             # accelerometer measurement noise standard deviation. #0.2   0.04
+gyr_n: 0.004            # gyroscope measurement noise standard deviation.     #0.05  0.004
+acc_w: 0.00004          # accelerometer bias random work noise standard deviation.  #0.02
+gyr_w: 2.0e-6           # gyroscope bias random work noise standard deviation.     #4.0e-5
+g_norm: 9.81007         # gravity magnitude
+
+# # body_to_cam0 is inverse of [R T]
+# body_to_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [1, 0, 0, 0,
+#           0, 1, 0, 0,
+#           0, 0, 1, 0,
+#           0, 0, 0, 1]
+
+# # body_to_cam1 is inverse of [R T]
+# body_to_cam1: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [1, 0, 0, -0.05,
+#           0, 1, 0, 0,
+#           0, 0, 1, 0,
+#           0, 0, 0, 1]
+
+# # lidar to body
+# body_to_lidar: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [  -1,          -0,          0  ,      0.062,
+#             0 ,          0 ,          -1 ,       0.149,
+#             0 ,          -1,          0  ,     0.0945,
+#             -0,           0,           -0,            1]
+
+
+# body_to_cam0 is inverse of [R T]
+body_to_cam0: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [   0,  0,  1, -0,
+            -1,  0, -0,  0,
+            0 ,-1 , 0 ,-0,
+            0 , 0 ,-0 , 1]
+
+
+# body_to_cam1 is inverse of [R T]
+body_to_cam1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [  0,   0,   1,     0,
+           -1,   0,   0, -0.05,
+            0,  -1,   0,    -0,
+            0,   0,  -0,     1]
+
+# lidar to body
+body_to_lidar: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [  0,   -1,   0, -0.0945,
+            1,    0,  -0,   0.062,
+           -0,   -0,   1,   0.149,
+           -0,    0,  -0,       1]
+
+
+# number of features
+num_features: 200
+num_features_init: 50
+num_features_tracking_bad: 20
+num_features_needed_for_keyframe: 120
+remove_moving_points: 0
+
+# backend
+windows_size: 3
+
+# loop
+relocator_mode: 1    # none = 0, visual = 1, lidar = 2, visual&&lidar = 3

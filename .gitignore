@@ -1,0 +1,10 @@
+build
+devel
+notes
+.catkin_workspace
+.vscode
+*.weights
+src/CMakeLists.txt
+**/__pycache__
+misc/log/**
+result
